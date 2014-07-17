@@ -1,2 +1,2 @@
 all: *.cpp
-	g++ -o potsofgold *.cpp -I.
+	g++ -O3 -o potsofgold *.cpp -I.

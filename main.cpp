@@ -8,13 +8,12 @@
 #include "MiniMaxNode.hpp"
 
 #include <iostream>
-#include <vector>
 #include <algorithm>
 
 using std::cout;
 using std::endl;
 
-const int sampleIn[] = { 1,1,1,5,5,3,2,8,5,2,1,1,3,4,2,8,9,1,1 };
+const int sampleIn[] = { 1,1,1,2,5,6,1,1,5,5,3,2,8,5,2,1,1,3,4,2,8,9,1,1,19,5,6,2,5,3,5,1,1,3,5,6,2,17,5,5,6,8,5 };
 
 // Total implementation time: 2 hours
 
@@ -38,7 +37,11 @@ int main( int argc, char** argv ) {
 
         // Solve for current player
         MiniMaxNode root( gameState );
-        Side result = root.solve( minPlayer, maxPlayer );
+        Side result = root.solve( minPlayer, maxPlayer, 20 );
+
+        // Possible improvements:
+        //  - We are solving the whole tree & discarding all of our work each iteration.
+        //    Trim existing tree to prevent duplicate work.
 
         // Make optimal move for current player
         gameState = gameState.makeMove( maxPlayer, result );

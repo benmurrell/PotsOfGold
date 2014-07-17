@@ -24,6 +24,7 @@ MiniMaxNode::~MiniMaxNode() {
 }
 
 // Find the optimal move for the given maxPlayer, exploring to the given depth in the minimax tree
+// Memory and time complexity of O(2^d) where d is min( aDepth, n ) and n is the number of pots of gold
 Side MiniMaxNode::solve( const PlayerId& aMinPlayer, const PlayerId& aMaxPlayer, const unsigned int& aDepth ) {
     int bestValue = minimax( this, aDepth, aMinPlayer, aMaxPlayer, true );
 
@@ -44,7 +45,7 @@ int MiniMaxNode::getValue() const {
 }
 
 // Recursive minimax implementation - returns the best value for the maximizing player
-int MiniMaxNode::minimax( MiniMaxNode* aNode, const int& aDepth, const PlayerId& aMinPlayer, const PlayerId& aMaxPlayer, bool aMaximize ) {
+int MiniMaxNode::minimax( MiniMaxNode* aNode, const unsigned int& aDepth, const PlayerId& aMinPlayer, const PlayerId& aMaxPlayer, bool aMaximize ) {
 
     // Reached the end
     if( aNode->isTerminal() ) {
@@ -52,10 +53,15 @@ int MiniMaxNode::minimax( MiniMaxNode* aNode, const int& aDepth, const PlayerId&
         return aNode->mValue;
     }
 
-    // Ran out of depth - heuristic time
+    // Ran out of depth - heuristic time.
     if( aDepth == 0 ) {
+        // Use current difference in score as heuristic value
         aNode->mValue = aNode->mState.getScore( aMaxPlayer ) - aNode->mState.getScore( aMinPlayer );
         return aNode->mValue;
+
+        // Possible improvements:
+        //  - Find largest value in remaining pots of gold & add it to the player that is most likely to
+        //    get it given a naive "must get the highest pot of gold" strategy
     }
 
     int bestValue = 0;

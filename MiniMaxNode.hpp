@@ -33,7 +33,7 @@ class MiniMaxNode {
     // Private functions
     //--------------------------------------------------------------------------
     private:
-        static int minimax( MiniMaxNode* aNode, const int& aDepth, const PlayerId& aMinPlayer, const PlayerId& aMaxPlayer, bool aMaximize );
+        static int minimax( MiniMaxNode* aNode, const unsigned int& aDepth, const PlayerId& aMinPlayer, const PlayerId& aMaxPlayer, bool aMaximize );
 
     //--------------------------------------------------------------------------
     // Private data
